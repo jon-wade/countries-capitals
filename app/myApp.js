@@ -46,10 +46,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
     }])
     .controller('countriesCtrl', ['$location', '$scope', 'getCountries', function($location, $scope, getCountries){
         //$scope variables here
-        $scope.countryArray = [[]];
         $scope.countryObject = {};
-
-
 
 
         //$scope methods here
@@ -60,27 +57,23 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 
         //
         getCountries.then(function(response) {
+
             //log the raw return object
             console.log(response);
 
-            //store the required data in a multi-dimensional array
+            //store the required data for the table in objects within an object
             for (var i=0; i<response.data.geonames.length; i++)
             {
-                $scope.countryArray[0][i] = response.data.geonames[i].countryName;
-            }
-            console.log($scope.countryArray);
-
-
-            //as an alternative, store the required data in an object within an object
-            for (var i=0; i<response.data.geonames.length; i++)
-            {
-                $scope.countryObject['Country' + i] = {'name': response.data.geonames[i].countryName};
+                $scope.countryObject['Country' + i] = {
+                    'name': response.data.geonames[i].countryName,
+                    'countryCode': response.data.geonames[i].countryCode,
+                    'capital': response.data.geonames[i].capital,
+                    'area': response.data.geonames[i].areaInSqKm,
+                    'population': response.data.geonames[i].population,
+                    'continent': response.data.geonames[i].continent
+                };
             }
             console.log($scope.countryObject);
-
-
-
-
 
         });
 
