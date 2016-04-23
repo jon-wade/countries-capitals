@@ -8,7 +8,7 @@
             <td>Population</td>
             <td>Continent Code</td>
         </tr>
-        <tr ng-repeat="obj in countryObject">
+        <tr ng-repeat="obj in countryObject" ng-click="link(obj.name);">
             <td>{{obj.name}}</td>
             <td>{{obj.countryCode}}</td>
             <td>{{obj.capital}}</td>

@@ -15,11 +15,11 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                 console.log('SUCCESS!');
                 //console.log(response);
 
+            })
+            .error(function (response) {
+                console.log('ERROR!');
+                //console.log(response);
             });
-            //.error(function (response) {
-            //    console.log('ERROR!');
-            //    //console.log(response);
-            //});
 
     }])
     .config(['$routeProvider', function($routeProvider) {
@@ -54,6 +54,12 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             $location.path('/');
         };
 
+        $scope.link = function(name){
+            //this method passes in the country name of table-row clicked
+            console.log(name);
+            $location.path('/countries/:' + name + '/capital');
+        };
+
 
         //
         getCountries.then(function(response) {
@@ -78,7 +84,15 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
         });
 
     }])
-    .controller('capitalCtrl', [function(){
+    .controller('capitalCtrl', ['$scope', '$location', function($scope, $location){
         //capital page controller code here
+        $scope.home = function() {
+            $location.path('/');
+        };
+
+        $scope.countries = function() {
+            $location.path('/countries');
+        };
+
 
     }]);
