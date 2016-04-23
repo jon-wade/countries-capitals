@@ -13,4 +13,18 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                 templateUrl: './capital/capital.html',
                 controller: 'capitalCtrl'
             })
-            .otherwise('/')}]);
+            .otherwise('/')}])
+    .controller('homeCtrl', ['$location', '$scope', function($location, $scope){
+        //home page controller code here
+        $scope.redirect = function(){
+            $location.path('/countries');
+        }
+
+    }])
+    .controller('countriesCtrl', [function(){
+        //countries page controller code here
+    }])
+    .controller('capitalCtrl', [function(){
+        //capital page controller code here
+
+    }]);
