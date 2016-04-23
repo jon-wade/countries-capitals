@@ -1,4 +1,13 @@
 <div id="countries-container">
-    <p>Table Goes Here</p>
+
+    <table>
+        <tr ng-repeat="obj in countryObject">
+               <td>{{obj.name}}</td>
+        </tr>
+    </table>
+
+
+
+
     <button ng-click="redirect()">Home</button>
 </div>
