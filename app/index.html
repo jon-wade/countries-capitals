@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+    <link rel="stylesheet" href="myApp-css.css">
+    <title>Countries & Capitals | ????</title>
+</head>
+<body>
+
+    <!--insert static content that appears on every page here-->
+    <header>
+        <h1>Countries and Capitals</h1>
+    </header>
+
+
+    <!--container for the dynamically generated content-->
+    <div ng-view></div>
+
+
+
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./bower_components/angular-route/angular-route.js"></script>
+    <script src="./bower_components/angular-animate/angular-animate.js"></script>
+    <script src="myApp.js"></script>
+</body>
+</html>
