@@ -20,3 +20,8 @@ div#home-container {
     padding: 0 20%;
     text-align: center;
 }
+
+tr#table-header {
+    background-color: white;
+    color: black;
+}
