@@ -73,7 +73,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     'capital': response.data.geonames[i].capital,
                     'area': response.data.geonames[i].areaInSqKm,
                     'population': response.data.geonames[i].population,
-                    'continent': response.data.geonames[i].continent
+                    'continent': response.data.geonames[i].continent,
                 };
             }
             console.log($scope.countryObject);
@@ -111,10 +111,14 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     'capital': response.data.geonames[i].capital,
                     'area': response.data.geonames[i].areaInSqKm,
                     'population': response.data.geonames[i].population,
-                    'continent': response.data.geonames[i].continent
+                    'continent': response.data.geonames[i].continent,
+                    'east': response.data.geonames[i].east,
+                    'west': response.data.geonames[i].west,
+                    'north': response.data.geonames[i].north,
+                    'south': response.data.geonames[i].south,
                 };
             }
-            //console.log($scope.countryObject);
+            console.log($scope.countryObject);
 
         });
 
@@ -132,9 +136,72 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                 method: 'GET'
             })
                 .success(function (response) {
-                    console.log('SUCCESS!');
+                    console.log('CAPITAL SUCCESS!');
                     console.log(response.geonames[0].population);
                     $scope.capitalPopulation = response.geonames[0].population;
+
+                })
+                .error(function (response) {
+                    console.log('ERROR');
+                });
+        }
+
+        function getNeighbours(country) {
+            var url = 'http://api.geonames.org/neighboursJSON';
+            var params = {
+                username: 'jonwade',
+                country: country
+            };
+
+            $scope.neighbourArray = [];
+
+            $http({
+                url: url,
+                params: params,
+                method: 'GET'
+            })
+                .success(function (response) {
+                    console.log('NEIGHBOUR SUCCESS!');
+                    console.log(response);
+                    $scope.numNeighbours = response.geonames.length;
+                    for (var i=0; i<response.geonames.length; i++){
+                        $scope.neighbourArray[i] = response.geonames[i].name;
+                    }
+
+                })
+                .error(function (response) {
+                    console.log('ERROR');
+                });
+
+        }
+
+        function getTimeZone(lng, lat){
+            var url = 'http://api.geonames.org/timezoneJSON';
+            var params = {
+                username: 'jonwade',
+                lat: lat,
+                lng: lng,
+                radius: 200
+            };
+
+            //$scope.neighbourArray = [];
+
+            $http({
+                url: url,
+                params: params,
+                method: 'GET'
+            })
+                .success(function (response) {
+                    console.log('TIMEZONE SUCCESS!');
+                    console.log(response);
+                    $scope.timezoneGMT = response.gmtOffset;
+                    if ($scope.timezoneGMT <0) {
+                        $scope.minus = true;
+                    }
+                    //$scope.numNeighbours = response.geonames.length;
+                    //for (var i=0; i<response.geonames.length; i++){
+                    //    $scope.neighbourArray[i] = response.geonames[i].name;
+                    //}
 
                 })
                 .error(function (response) {
@@ -146,6 +213,17 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             console.log('Checking countryObject...');
             if ($scope.countryObject[$scope.urlToken] != undefined){
                 getCapitalData($scope.countryObject[$scope.urlToken].capital, $scope.countryObject[$scope.urlToken].countryCode);
+                getNeighbours($scope.countryObject[$scope.urlToken].countryCode);
+
+                var avgLongitude = ($scope.countryObject[$scope.urlToken].east + $scope.countryObject[$scope.urlToken].west)/2;
+                var avgLatitude = ($scope.countryObject[$scope.urlToken].north + $scope.countryObject[$scope.urlToken].south)/2;
+
+                getTimeZone(avgLongitude, avgLatitude);
+
+
+                $scope.lowerCaseCountryCode = $scope.countryObject[$scope.urlToken].countryCode.toLowerCase();
+                $scope.flagURL = 'http://www.geonames.org/flags/x/' + $scope.lowerCaseCountryCode + '.gif';
+                $scope.mapURL = 'http://www.geonames.org/img/country/250/' + $scope.countryObject[$scope.urlToken].countryCode + '.png'
             }
             else {
                 console.log('Nope, not yet...waiting a second');

@@ -6,11 +6,18 @@
         <li>Capital city: <span>{{countryObject[urlToken].capital}}</span></li>
         <li>Population of capital city: <span>{{capitalPopulation | number:0}}</span></li>
         <li>Continent: <span>{{countryObject[urlToken].continent}}</span></li>
-        <li>Time zone: <span></span></li>
-        <li>Number of neighbours: <span></span></li>
-        <li>Names of neighbours: <span></span></li>
-        <li>Image of flag: <span></span></li>
-        <li>Map of country: <span></span></li>
+        <li ng-if="minus">Time zone: <span>GMT {{timezoneGMT}}</span></li>
+        <li ng-if="!minus">Time zone: GMT +<span>{{timezoneGMT}}</span></li>
+        <li>Number of neighbours: <span>{{numNeighbours}}</span></li>
+        <li ng-if="numNeighbours>0;">Names of neighbours:
+            <span>
+                <ul>
+                    <li ng-repeat="item in neighbourArray">{{item}}</li>
+                </ul>
+            </span>
+        </li>
+        <li><img ng-src={{flagURL}}></li>
+        <li><img ng-src={{mapURL}}></li>
     </ul>
 
 
