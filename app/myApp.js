@@ -53,7 +53,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 
         $scope.link = function(name){
             //this method passes in the country name of table-row clicked
-            console.log(name);
+            //console.log(name);
             $location.path('/countries/' + name + '/capital');
         };
 
@@ -91,6 +91,10 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             $location.path('/countries');
         };
 
+        $scope.urlToken = $route.current.params.country;
+        console.log($scope.urlToken);
+
+
         //get data from factory and store (SAME AS PREVIOUS CONTROLLER - NOT DRY!!!)
         $scope.countryObject = {};
         getCountries.then(function(response) {
@@ -101,7 +105,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             //store the required data for the table in objects within an object
             for (var i=0; i<response.data.geonames.length; i++)
             {
-                $scope.countryObject['Country' + i] = {
+                $scope.countryObject[response.data.geonames[i].countryName] = {
                     'name': response.data.geonames[i].countryName,
                     'countryCode': response.data.geonames[i].countryCode,
                     'capital': response.data.geonames[i].capital,
@@ -114,8 +118,9 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 
         });
 
-        var country = $route.current.params.country;
-        console.log(country);
+
+
+
 
 
     }]);
