@@ -81,7 +81,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
         });
 
     }])
-    .controller('capitalCtrl', ['$scope', '$location', 'getCountries', '$route', function($scope, $location, getCountries, $route){
+    .controller('capitalCtrl', ['$scope', '$location', 'getCountries', '$route', '$http', function($scope, $location, getCountries, $route, $http){
         //capital page controller code here
         $scope.home = function() {
             $location.path('/');
@@ -114,9 +114,54 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     'continent': response.data.geonames[i].continent
                 };
             }
-            console.log($scope.countryObject);
+            //console.log($scope.countryObject);
 
         });
+
+        function getCapitalData(q, country) {
+            var url = 'http://api.geonames.org/searchJSON';
+            var params = {
+                username: 'jonwade',
+                q: q,
+                country: country
+            };
+
+            $http({
+                url: url,
+                params: params,
+                method: 'GET'
+            })
+                .success(function (response) {
+                    console.log('SUCCESS!');
+                    console.log(response.geonames[0].population);
+                    $scope.capitalPopulation = response.geonames[0].population;
+
+                })
+                .error(function (response) {
+                    console.log('ERROR');
+                });
+        }
+
+        function checkObject(){
+            console.log('Checking countryObject...');
+            if ($scope.countryObject[$scope.urlToken] != undefined){
+                getCapitalData($scope.countryObject[$scope.urlToken].capital, $scope.countryObject[$scope.urlToken].countryCode);
+            }
+            else {
+                console.log('Nope, not yet...waiting a second');
+                setTimeout(function(){checkObject();}, 500);
+            }
+        }
+        console.log('Checking to see if the countryObject has updated...');
+        checkObject();
+
+
+
+
+
+
+
+
 
 
 
