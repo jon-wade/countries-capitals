@@ -10,16 +10,15 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             'url': url,
             'params': params,
             'method': 'GET',
+            //ensure this factory method only accesses the API once
             'cache': true
         })
-            .success(function (response) {
+            .success(function() {
                 console.log('SUCCESS!');
-                //console.log(response);
 
             })
-            .error(function (response) {
+            .error(function() {
                 console.log('ERROR!');
-                //console.log(response);
             });
 
     }])
@@ -38,22 +37,20 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                 controller: 'capitalCtrl'
             })
             .otherwise('/')}])
+
     .controller('homeCtrl', ['$location', '$scope', function($location, $scope){
-        //home page controller code here
         $scope.redirect = function(){
             $location.path('/countries');
         };
     }])
-    .controller('countriesCtrl', ['$location', '$scope', 'getCountries', function($location, $scope, getCountries){
 
-        //$scope methods here
+    .controller('countriesCtrl', ['$location', '$scope', 'getCountries', function($location, $scope, getCountries){
         $scope.redirect = function(){
             $location.path('/');
         };
 
         $scope.link = function(name){
             //this method passes in the country name of table-row clicked
-            //console.log(name);
             $location.path('/countries/' + name + '/capital');
         };
 
@@ -73,7 +70,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     'capital': response.data.geonames[i].capital,
                     'area': response.data.geonames[i].areaInSqKm,
                     'population': response.data.geonames[i].population,
-                    'continent': response.data.geonames[i].continent,
+                    'continent': response.data.geonames[i].continent
                 };
             }
             console.log($scope.countryObject);
@@ -82,7 +79,6 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 
     }])
     .controller('capitalCtrl', ['$scope', '$location', 'getCountries', '$route', '$http', function($scope, $location, getCountries, $route, $http){
-        //capital page controller code here
         $scope.home = function() {
             $location.path('/');
         };
@@ -115,7 +111,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     'east': response.data.geonames[i].east,
                     'west': response.data.geonames[i].west,
                     'north': response.data.geonames[i].north,
-                    'south': response.data.geonames[i].south,
+                    'south': response.data.geonames[i].south
                 };
             }
             console.log($scope.countryObject);
@@ -141,7 +137,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     $scope.capitalPopulation = response.geonames[0].population;
 
                 })
-                .error(function (response) {
+                .error(function () {
                     console.log('ERROR');
                 });
         }
@@ -169,7 +165,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     }
 
                 })
-                .error(function (response) {
+                .error(function () {
                     console.log('ERROR');
                 });
 
@@ -184,8 +180,6 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                 radius: 200
             };
 
-            //$scope.neighbourArray = [];
-
             $http({
                 url: url,
                 params: params,
@@ -198,17 +192,13 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     if ($scope.timezoneGMT <0) {
                         $scope.minus = true;
                     }
-                    //$scope.numNeighbours = response.geonames.length;
-                    //for (var i=0; i<response.geonames.length; i++){
-                    //    $scope.neighbourArray[i] = response.geonames[i].name;
-                    //}
-
                 })
-                .error(function (response) {
+                .error(function () {
                     console.log('ERROR');
                 });
         }
 
+        //this waits until the countryObject storage is complete before proceeding with calling other functions
         function checkObject(){
             console.log('Checking countryObject...');
             if ($scope.countryObject[$scope.urlToken] != undefined){
@@ -226,24 +216,11 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                 $scope.mapURL = 'http://www.geonames.org/img/country/250/' + $scope.countryObject[$scope.urlToken].countryCode + '.png'
             }
             else {
-                console.log('Nope, not yet...waiting a second');
+                console.log('Nope, not yet...waiting half a second');
                 setTimeout(function(){checkObject();}, 500);
             }
         }
         console.log('Checking to see if the countryObject has updated...');
         checkObject();
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }]);
