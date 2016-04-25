@@ -254,6 +254,13 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     $scope.countryObject[$scope.urlToken].map.height = 200;
                     $scope.countryObject[$scope.urlToken].map.width = (200/currentMapHeight)*currentMapWidth;
 
+                    //deal with oversize maps bug
+                    if($scope.countryObject[$scope.urlToken].map.width >350) {
+
+                        $scope.countryObject[$scope.urlToken].map.height = (350/$scope.countryObject[$scope.urlToken].map.width)*($scope.countryObject[$scope.urlToken].map.height);
+                        $scope.countryObject[$scope.urlToken].map.width = 350;
+                    }
+
                     var currentFlagWidth = $scope.countryObject[$scope.urlToken].flag.width;
                     var currentFlagHeight = $scope.countryObject[$scope.urlToken].flag.height;
                     $scope.countryObject[$scope.urlToken].flag.height = 200;

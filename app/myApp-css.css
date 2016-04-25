@@ -71,6 +71,7 @@ ul li {
 
 div#capital-container img {
     border: darkgray 3px solid;
+    vertical-align: top;
 }
 
 span.neighbour {
