@@ -1,20 +1,22 @@
 angular.module('myApp', ['ngRoute', 'ngAnimate'])
     .run(['$rootScope', '$location', '$timeout', function($rootScope, $location, $timeout) {
+        //redirects to the home page if any routing errors
         $rootScope.$on('$routeChangeError', function() {
             $location.path('/');
         });
 
+        //when URL changes, set class to add loading spinner
         $rootScope.$on('$routeChangeSuccess', function() {
             $rootScope.isLoading = true;
             console.log($rootScope.isLoading);
         });
 
+        //when loading finished, after 1 second, remove loading spinner
         $rootScope.$on('$routeChangeSuccess', function() {
             $timeout(function() {
                 $rootScope.isLoading = false;
             }, 1000);
         });
-
 
     }])
     .factory('getCountries', ['$http', function($http){
@@ -121,7 +123,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             //log the raw return object
             console.log(response);
 
-            //store the required data for the table in objects within an object
+            //store the required data for the table in an object per country within an object
             for (var i=0; i<response.data.geonames.length; i++)
             {
                 $scope.countryObject[response.data.geonames[i].countryName] = {

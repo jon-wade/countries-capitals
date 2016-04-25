@@ -4,17 +4,17 @@
             <td>Country Name</td>
             <td>Country Code</td>
             <td>Capital City</td>
-            <td>Area (sq km)</td>
-            <td>Population</td>
+            <td class="right">Area (sq km)</td>
+            <td class="right">Population</td>
             <td>Continent Code</td>
         </tr>
         <tr ng-repeat="obj in countryObject" ng-click="link(obj.name);">
             <td>{{obj.name}}</td>
-            <td>{{obj.countryCode}}</td>
+            <td class="middle">{{obj.countryCode}}</td>
             <td>{{obj.capital}}</td>
-            <td>{{obj.area | number:0}}</td>
-            <td>{{obj.population | number:0}}</td>
-            <td>{{obj.continent}}</td>
+            <td class="right">{{obj.area | number:0}}</td>
+            <td class="right">{{obj.population | number:0}}</td>
+            <td class="middle">{{obj.continent}}</td>
         </tr>
     </table>
     <button ng-click="redirect()">Home</button>

@@ -17,6 +17,24 @@ header {
     text-align: center;
 }
 
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+td {
+    border-bottom: 1px darkgray solid;
+    padding-right: 5px;
+}
+
+td.right {
+    text-align: right;
+}
+
+td.middle {
+    text-align: center;
+}
+
 div#home-container, div#capital-container {
     padding: 0 20%;
     text-align: center;
