@@ -33,6 +33,10 @@ ul.capital-list {
     margin: 50px auto;
 }
 
+ul.capital-list li span.ng-binding {
+    color: darkgray;
+}
+
 ul.capital-list, ul.capital-list li span ul {
     text-align: left;
 }
@@ -51,7 +55,7 @@ div#capital-container img {
     border: darkgray 3px solid;
 }
 
-li.neighbour {
+span.neighbour {
     text-decoration: underline;
     display: inline-block;
     margin-right: 10px;

@@ -4,23 +4,15 @@
     <img ng-src={{flagURL}} width={{flagWidth}} height="{{flagHeight}}">
     <ul class="capital-list">
         <li>Population: <span>{{countryObject[urlToken].population | number:0}}</span></li>
-        <li>Area: <span>{{countryObject[urlToken].area | number:0}}</span> sq km</li>
+        <li>Area: <span>{{countryObject[urlToken].area | number:0}}  sq km</span></li>
         <li>Capital city: <span>{{countryObject[urlToken].capital}}</span></li>
         <li>Population of capital city: <span>{{capitalPopulation | number:0}}</span></li>
         <li>Continent: <span>{{countryObject[urlToken].continent}}</span></li>
         <li ng-if="minus">Time zone: <span>GMT {{timezoneGMT}}</span></li>
         <li ng-if="!minus">Time zone: GMT +<span>{{timezoneGMT}}</span></li>
         <li>Number of neighbours: <span>{{numNeighbours}}</span></li>
-        <li ng-if="numNeighbours>0;">Names of neighbours:
-            <span>
-                <ul>
-                    <li class="neighbour" ng-repeat="item in neighbourArray" ng-click="redirect(item)">{{item}}</li>
-                </ul>
-            </span>
-        </li>
+        <li ng-if="numNeighbours>0;">Names of neighbours: <span class="neighbour" ng-repeat="item in neighbourArray" ng-click="redirect(item)">{{item}} </span></li>
     </ul>
-
-    <!--<img ng-src={{flagURL}}>-->
 
     <button type="button" ng-click="home()">Home</button>
     <button type="button" ng-click="countries()">Back to Countries</button>
