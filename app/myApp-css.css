@@ -8,7 +8,7 @@ html {
 body {
     background-color: black;
     color: white;
-    font-size: 2em;
+    font-size: 1.25em;
 }
 
 header {
@@ -27,6 +27,17 @@ div#capital-container {
     background-position: center;
 }
 
+
+ul.capital-list {
+    width: 400px;
+    margin: 50px auto;
+}
+
+ul.capital-list, ul.capital-list li span ul {
+    text-align: left;
+}
+
+
 tr#table-header {
     background-color: white;
     color: black;
@@ -37,9 +48,11 @@ ul li {
 }
 
 div#capital-container img {
-    border: white 2px solid;
+    border: darkgray 3px solid;
 }
 
 li.neighbour {
     text-decoration: underline;
+    display: inline-block;
+    margin-right: 10px;
 }

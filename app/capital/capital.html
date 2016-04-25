@@ -1,7 +1,7 @@
 <div id="capital-container">
     <h1>{{countryObject[urlToken].name}}</h1>
-    <img  ng-src={{mapURL}}>
-    <img ng-src={{flagURL}}>
+    <img  ng-src={{mapURL}} width={{mapWidth}} height={{mapHeight}}>
+    <img ng-src={{flagURL}} width={{flagWidth}} height="{{flagHeight}}">
     <ul class="capital-list">
         <li>Population: <span>{{countryObject[urlToken].population | number:0}}</span></li>
         <li>Area: <span>{{countryObject[urlToken].area | number:0}}</span> sq km</li>
