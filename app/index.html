@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="myApp-css.css">
     <title>Countries & Capitals | ????</title>
 </head>
-<body>
+<body ng-class="{loading: isLoading}">
 
     <!--insert static content that appears on every page here-->
     <header>
@@ -16,8 +16,9 @@
 
 
     <!--container for the dynamically generated content-->
-    <div ng-view></div>
-
+    <div class="animate-view-container" >
+        <div ng-view class="animate-view"></div>
+    </div>
 
 
     <script src="./bower_components/angular/angular.js"></script>

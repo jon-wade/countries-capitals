@@ -1,4 +1,22 @@
 angular.module('myApp', ['ngRoute', 'ngAnimate'])
+    .run(['$rootScope', '$location', '$timeout', function($rootScope, $location, $timeout) {
+        $rootScope.$on('$routeChangeError', function() {
+            $location.path('/');
+        });
+
+        $rootScope.$on('$routeChangeSuccess', function() {
+            $rootScope.isLoading = true;
+            console.log($rootScope.isLoading);
+        });
+
+        $rootScope.$on('$routeChangeSuccess', function() {
+            $timeout(function() {
+                $rootScope.isLoading = false;
+            }, 1000);
+        });
+
+
+    }])
     .factory('getCountries', ['$http', function($http){
 
         var url = 'http://api.geonames.org/countryInfoJSON';
