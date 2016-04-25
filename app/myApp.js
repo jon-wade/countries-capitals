@@ -87,8 +87,13 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             $location.path('/countries');
         };
 
+        //this function redirects from a capital page to a neighbour's capital page
+        $scope.redirect = function(destination) {
+            $location.path('/countries/' + destination + '/capital')
+        };
+
+        //this grabs the country name token from the current URL and  stores it in a variable
         $scope.urlToken = $route.current.params.country;
-        console.log($scope.urlToken);
 
 
         //get data from factory and store (SAME AS PREVIOUS CONTROLLER - NOT DRY!!!)

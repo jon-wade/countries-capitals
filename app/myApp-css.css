@@ -8,6 +8,7 @@ html {
 body {
     background-color: black;
     color: white;
+    font-size: 2em;
 }
 
 header {
@@ -16,12 +17,25 @@ header {
     text-align: center;
 }
 
-div#home-container {
+div#home-container, div#capital-container {
     padding: 0 20%;
     text-align: center;
+}
+
+div#capital-container {
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 tr#table-header {
     background-color: white;
     color: black;
+}
+
+ul li {
+    list-style: none;
+}
+
+div#capital-container img {
+    border: white 2px solid;
 }
