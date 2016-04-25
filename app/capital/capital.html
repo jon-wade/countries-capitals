@@ -11,7 +11,7 @@
         <li ng-if="minus">Time zone: <span>GMT {{timezoneGMT}}</span></li>
         <li ng-if="!minus">Time zone: GMT <span>+{{timezoneGMT}}</span></li>
         <li>Number of neighbours: <span>{{numNeighbours}}</span></li>
-        <li ng-if="numNeighbours>0;">Names of neighbours: <span class="neighbour" ng-repeat="item in neighbourArray" ng-click="redirect(item)">{{item}} </span></li>
+        <li ng-if="numNeighbours>0;">Names of neighbours: <span class="neighbour" ng-repeat="item in neighbourArray" ng-click="redirect(item)">{{item}}</span></li>
     </ul>
 
     <button type="button" ng-click="home()">Home</button>

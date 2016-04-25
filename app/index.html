@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- build:css ./_assets/combined.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
     <link rel="stylesheet" href="myApp-css.css">
+    <!-- endbuild  -->
     <title>Countries & Capitals | ????</title>
 </head>
 <body ng-class="{loading: isLoading}">
@@ -20,10 +22,11 @@
         <div ng-view class="animate-view"></div>
     </div>
 
-
+    <!-- build:js ./_assets/combined.js -->
     <script src="./bower_components/angular/angular.js"></script>
     <script src="./bower_components/angular-route/angular-route.js"></script>
     <script src="./bower_components/angular-animate/angular-animate.js"></script>
     <script src="myApp.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

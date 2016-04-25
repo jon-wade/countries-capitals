@@ -57,13 +57,11 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                 controller: 'capitalCtrl'
             })
             .otherwise('/')}])
-
     .controller('homeCtrl', ['$location', '$scope', function($location, $scope){
         $scope.redirect = function(){
             $location.path('/countries');
         };
     }])
-
     .controller('countriesCtrl', ['$location', '$scope', 'getCountries', function($location, $scope, getCountries){
         $scope.redirect = function(){
             $location.path('/');
@@ -186,7 +184,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     console.log(response);
                     $scope.numNeighbours = response.geonames.length;
                     for (var i=0; i<response.geonames.length; i++){
-                        $scope.neighbourArray[i] = response.geonames[i].name;
+                        $scope.neighbourArray[i] = response.geonames[i].countryName;
                     }
 
                 })
