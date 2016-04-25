@@ -1,6 +1,6 @@
 <div id="capital-container">
     <h1>{{countryObject[urlToken].name}}</h1>
-    <img ng-src={{mapURL}}>
+    <img  ng-src={{mapURL}}>
     <img ng-src={{flagURL}}>
     <ul class="capital-list">
         <li>Population: <span>{{countryObject[urlToken].population | number:0}}</span></li>
@@ -14,7 +14,7 @@
         <li ng-if="numNeighbours>0;">Names of neighbours:
             <span>
                 <ul>
-                    <li ng-repeat="item in neighbourArray" ng-click="redirect(item)">{{item}}</li>
+                    <li class="neighbour" ng-repeat="item in neighbourArray" ng-click="redirect(item)">{{item}}</li>
                 </ul>
             </span>
         </li>

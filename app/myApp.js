@@ -205,23 +205,91 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 
         //this waits until the countryObject storage is complete before proceeding with calling other functions
         function checkObject(){
+            //create map failure object
+            var mapFail = new Image();
+            mapFail.src = 'capital/map-fail.png';
+
             console.log('Checking countryObject...');
             if ($scope.countryObject[$scope.urlToken] != undefined){
                 getCapitalData($scope.countryObject[$scope.urlToken].capital, $scope.countryObject[$scope.urlToken].countryCode);
+
                 getNeighbours($scope.countryObject[$scope.urlToken].countryCode);
 
+                //work out average longitude and latitude to obtain timezone from the API
                 var avgLongitude = ($scope.countryObject[$scope.urlToken].east + $scope.countryObject[$scope.urlToken].west)/2;
                 var avgLatitude = ($scope.countryObject[$scope.urlToken].north + $scope.countryObject[$scope.urlToken].south)/2;
-
                 getTimeZone(avgLongitude, avgLatitude);
 
+                //create image object to store flag and add to countryObject
+                var flag = new Image();
+                flag.src = 'http://www.geonames.org/flags/x/' + $scope.countryObject[$scope.urlToken].countryCode.toLowerCase() + '.gif';
+                $scope.countryObject[$scope.urlToken].flag = flag;
+                $scope.flagURL = $scope.countryObject[$scope.urlToken].flag.src;
 
-                $scope.lowerCaseCountryCode = $scope.countryObject[$scope.urlToken].countryCode.toLowerCase();
-                $scope.flagURL = 'http://www.geonames.org/flags/x/' + $scope.lowerCaseCountryCode + '.gif';
-                $scope.mapURL = 'http://www.geonames.org/img/country/250/' + $scope.countryObject[$scope.urlToken].countryCode + '.png'
+                //create image object to store map and add to countryObject
+                var map = new Image();
+                //error branching here as some maps are not available on the server
+                var cc = $scope.countryObject[$scope.urlToken].countryCode;
+                if (cc == 'HK' || cc == 'BQ'|| cc == 'CW' || cc == 'ME' || cc == 'PS' || cc == 'RS' || cc == 'SX' || cc == 'UM' || cc == 'VI') {
+                    console.log('Load error image here');
+                    $scope.countryObject[$scope.urlToken].map = mapFail;
+                    $scope.mapURL = $scope.countryObject[$scope.urlToken].map.src;
+                }
+                else {
+                    map.src = 'http://www.geonames.org/img/country/250/' + $scope.countryObject[$scope.urlToken].countryCode + '.png';
+                    $scope.countryObject[$scope.urlToken].map = map;
+                    $scope.mapURL = $scope.countryObject[$scope.urlToken].map.src;
+                }
+
+
+
+                var flagGetCounter=0;
+                var mapGetCounter=0;
+
+                function checkFlagImages(){
+                    console.log('Checking flag images...');
+                    if ($scope.countryObject[$scope.urlToken].flag.width >0){
+                        console.log('flag width: ' + $scope.countryObject[$scope.urlToken].flag.width);
+                        console.log('flag height: ' + $scope.countryObject[$scope.urlToken].flag.height);
+                    }
+                    else {
+                        console.log('Nope, flag images not loaded yet...waiting half a second');
+                        flagGetCounter++;
+                        if (flagGetCounter<5){
+                            setTimeout(function(){checkFlagImages();}, 500);
+                        }
+                        else {
+                            console.log('ERROR: flag image failed to load!!');
+                        }
+                    }
+                }
+                console.log('Checking to see if the flag images have updated...');
+                checkFlagImages();
+
+                function checkMapImages(){
+                    console.log('Checking map images...');
+                    if ($scope.countryObject[$scope.urlToken].map.width >0){
+                        $scope.mapURL = $scope.countryObject[$scope.urlToken].map.src;
+                        console.log('map width: ' + $scope.countryObject[$scope.urlToken].map.width);
+                        console.log('map height: ' + $scope.countryObject[$scope.urlToken].map.height);
+                    }
+                    else {
+                        console.log('Nope, map images not loaded yet...waiting half a second');
+                        mapGetCounter++;
+                        if (mapGetCounter<20){
+                            setTimeout(function(){checkMapImages();}, 500);
+                        }
+                        else {
+                            console.log('ERROR: map image failed to load!!');
+                        }
+                    }
+                }
+                console.log('Checking to see if the map images have updated...');
+                checkMapImages();
+
             }
             else {
-                console.log('Nope, not yet...waiting half a second');
+                console.log('Nope, countryObject not defined...waiting half a second');
                 setTimeout(function(){checkObject();}, 500);
             }
         }

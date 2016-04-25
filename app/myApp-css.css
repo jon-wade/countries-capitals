@@ -39,3 +39,7 @@ ul li {
 div#capital-container img {
     border: white 2px solid;
 }
+
+li.neighbour {
+    text-decoration: underline;
+}
