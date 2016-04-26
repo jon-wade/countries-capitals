@@ -225,7 +225,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             return $q(function(resolve) {
             //create map failure object
             var mapFail = new Image();
-            mapFail.src = 'capital/map-fail.png';
+                mapFail.src = 'capital/map-fail.png';
 
             //create image object to store flag and add to countryObject
             var flag = new Image();
