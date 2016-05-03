@@ -33,12 +33,14 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             //ensure this factory method only accesses the API once
             'cache': true
         })
-            .success(function() {
-                console.log('SUCCESS!');
+            .success(function(response) {
+                console.log('SUCCESS: ', response);
+                return response;
 
             })
-            .error(function() {
-                console.log('ERROR!');
+            .error(function(error) {
+                console.log('ERROR:', error);
+                return error;
             });
 
     }])
@@ -96,9 +98,11 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
         });
 
     }])
+
     .controller('capitalCtrl', ['$scope', '$location', 'getCountries', '$route', '$http', '$q', function($scope, $location, getCountries, $route, $http, $q){
         $scope.home = function() {
             $location.path('/');
+            return 'Falright';
         };
 
         $scope.countries = function() {
@@ -113,6 +117,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
         //this grabs the country name token from the current URL and  stores it in a variable
         $scope.urlToken = $route.current.params.country;
 
+        console.log('$scope.urlToken = ', $scope.urlToken);
 
         //get data from factory and store (SAME AS PREVIOUS CONTROLLER - NOT DRY!!!)
         $scope.countryObject = {};
@@ -141,7 +146,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 
         });
 
-        function getCapitalData(q, country) {
+        $scope.getCapitalData = function(q, country) {
             var url = 'http://api.geonames.org/searchJSON';
             var params = {
                 username: 'jonwade',
@@ -165,7 +170,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
                 });
         }
 
-        function getNeighbours(country) {
+        $scope.getNeighbours = function(country) {
             var url = 'http://api.geonames.org/neighboursJSON';
             var params = {
                 username: 'jonwade',
@@ -280,8 +285,8 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
         function checkObject(){
             console.log('Checking countryObject...');
             if ($scope.countryObject[$scope.urlToken] != undefined){
-                getCapitalData($scope.countryObject[$scope.urlToken].capital, $scope.countryObject[$scope.urlToken].countryCode);
-                getNeighbours($scope.countryObject[$scope.urlToken].countryCode);
+                $scope.getCapitalData($scope.countryObject[$scope.urlToken].capital, $scope.countryObject[$scope.urlToken].countryCode);
+                $scope.getNeighbours($scope.countryObject[$scope.urlToken].countryCode);
 
                 //work out average longitude and latitude to obtain timezone from the API
                 var avgLongitude = ($scope.countryObject[$scope.urlToken].east + $scope.countryObject[$scope.urlToken].west)/2;
@@ -306,6 +311,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
             }
         }
         console.log('Checking to see if the countryObject has updated...');
+
         checkObject();
 
     }]);

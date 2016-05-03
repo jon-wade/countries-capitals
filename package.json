@@ -15,7 +15,13 @@
     "gulp-util": "^3.0.7"
   },
   "devDependencies": {
-    "gulp-clean-css": "^2.0.6"
+    "gulp-clean-css": "^2.0.6",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-coverage": "^0.5.5",
+    "karma-jasmine": "^0.3.8",
+    "karma-requirejs": "^0.2.6"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
